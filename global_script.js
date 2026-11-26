@@ -857,6 +857,9 @@ function __yaynetMainRaw(config) {
  *       表现为「没有节点了，全部直连」。
  * 作用：检测到 config 存在 proxy-providers 时，补一个承载 provider 全部
  *       节点的「其他节点」组（mihomo 的 use 字段），并让「默认节点」指向它。
+ *       该组只放 provider 里的真实节点、不放「直连」（与官方脚本
+ *       otherProxies 分支语义一致），直连只留在「默认节点」里兜底，
+ *       这样组内默认选中项就是真实节点而不是直连。
  *       没有 provider 的普通订阅完全走原逻辑，输出与官方版逐字节一致。
  * ========================================================================== */
 function main(config, profileName) {
@@ -873,8 +876,8 @@ function main(config, profileName) {
       ...groupBaseOption,
       name: '其他节点',
       type: 'select',
-      proxies: ['直连'],
-      icon: 'https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Proxy.png',
+      proxies: [],
+      icon: 'https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/World_Map.png',
     }
     const defIdx = groups.findIndex((g) => g.name === '默认节点')
     groups.splice(defIdx < 0 ? 0 : defIdx + 1, 0, other)
@@ -886,3 +889,4 @@ function main(config, profileName) {
 
   return out
 }
+
