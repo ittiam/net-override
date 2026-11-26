@@ -655,7 +655,7 @@ function __yaynetMainRaw(config) {
     stack: 'mixed',
     device: 'utun1999',
     'auto-route': true,
-    'auto-redirect': false,
+    'auto-redirect': true,
     'auto-detect-interface': true,
     'strict-route': true,
     mtu: 1500,
